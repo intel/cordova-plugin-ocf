@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin
         xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="cordova-plugin-ocf" version="0.5.1">
+        id="cordova-plugin-ocf" version="0.6.1">
     <name>OcfPlugin</name>
     <description>Cordova OCF Plugin</description>
     <license>Apache 2.0</license>
@@ -34,6 +34,6 @@
         <source-file src="src/android/OcfDevice.java" target-dir="src/" />
 
         <framework src="src/android/ocf.gradle" custom="true" type="gradleReference" />
-        <resource-file src="libs/iotivity-1.1.patched.aar" target="libs/iotivity-1.1.patched.aar" />
+        <resource-file src="libs/iotivity-1.1.1.patched.aar" target="libs/iotivity-1.1.1.patched.aar" />
     </platform>
 </plugin>
