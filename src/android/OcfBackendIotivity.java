@@ -355,11 +355,6 @@ public class OcfBackendIotivity
         }
     }
 
-    @Override
-    public synchronized void onFindResourceFailed(Throwable ex, String uri) {
-        Log.e("CordovaPluginOCF", "Find resource failed: " + uri);
-    }
-
     public void findResources(JSONArray args, CallbackContext cc)
         throws JSONException
     {
