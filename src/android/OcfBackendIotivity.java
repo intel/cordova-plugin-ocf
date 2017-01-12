@@ -312,7 +312,7 @@ public class OcfBackendIotivity
         this.findDevicesCallbackContext = cc;
         try {
             OcPlatform.getDeviceInfo(
-                "", "/ocf/d", EnumSet.of(OcConnectivityType.CT_DEFAULT), this);
+                "", "/oic/d", EnumSet.of(OcConnectivityType.CT_DEFAULT), this);
         } catch (OcException ex) {
             this.findDevicesCallbackContext.error(ex.getMessage());
         }
@@ -326,7 +326,7 @@ public class OcfBackendIotivity
 
         Log.d("CordovaPluginOCF", "Found resource: " + key);
 
-        if (resourcePath.equals("/ocf/p") || resourcePath.equals("/ocf/d")) {
+        if (resourcePath.equals("/oic/p") || resourcePath.equals("/oic/d")) {
             return;
         }
 
