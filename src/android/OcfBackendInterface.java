@@ -19,4 +19,5 @@ public interface OcfBackendInterface {
     public void updateResource(JSONArray args, CallbackContext cc)
         throws JSONException;
     public JSONArray getResourceUpdates() throws JSONException;
+    public JSONObject getResourceProperties(String key) throws JSONException;
 }

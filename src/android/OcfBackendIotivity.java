@@ -508,4 +508,19 @@ public class OcfBackendIotivity
         this.resourceUpdates.clear();
         return updates;
     }
+
+    public JSONObject getResourceProperties(String key) throws JSONException {
+        JSONObject obj = new JSONObject();
+        OcResource nativeResource = this.getSeenResourceByKey(key);
+        OcfResource resource = this.nativeToOcfResourceMap.get(nativeResource);
+
+        if (resource != null) {
+            obj.put("key", key);
+            obj.put("properties", resource.getProperties().toJSON());
+        } else {
+            Log.d("CordovaPluginOCF", "Resource not found: " + key);
+        }
+
+        return obj;
+    }
 }

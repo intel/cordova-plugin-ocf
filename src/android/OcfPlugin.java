@@ -70,6 +70,11 @@ public class OcfPlugin extends CordovaPlugin {
         return this.backend.getResourceUpdates();
     }
 
+    private JSONObject getResourceProperties(final JSONArray args) throws JSONException {
+        String key = args.getString(0);
+        return this.backend.getResourceProperties(key);
+    }
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext cc) {
         Log.d(TAG, "Executing Cordova action: " + action);
@@ -100,6 +105,9 @@ public class OcfPlugin extends CordovaPlugin {
             } else if ("getResourceUpdates".equals(action)) {
                 JSONArray updates = this.getResourceUpdates();
                 cc.success(updates);
+            } else if ("getResourceProperties".equals(action)) {
+                JSONObject properties = this.getResourceProperties(args);
+                cc.success(properties);
             } else {
                 Log.e(TAG, "Unknown action: " + action);
                 cc.error("Unknown action: " + action);

@@ -145,5 +145,37 @@ cordova.define("cordova/plugin/ocf", function(require, exports, module) {
         exec(successCallback, errorCallback, "OcfPlugin", "getResourceUpdates", []);
     }, 2000);
 
+    // Resource properties are fetched asynchronously in the plugin, so we poll
+    // to get them.
+    setInterval(function() {
+        var i;
+
+        function successCallback(result) {
+            var i, resource, entry, resourceId, properties;
+
+            for (i = 0; i < ocf.resources.length; i++) {
+                resource = ocf.resources[i];
+                if (result.key === resource.id.deviceId + resource.id.resourcePath) {
+                    resource.properties = result.properties;
+                }
+            }
+        }
+
+        function errorCallback(error) {
+            console.error(error);
+        }
+
+        for (i = 0; i < ocf.resources.length; i++) {
+            resource = ocf.resources[i];
+            if (Object.keys(resource.properties).length === 0) {
+                // Only do this for resources that have no properties.
+                exec(
+                    successCallback, errorCallback,
+                    "OcfPlugin", "getResourceProperties",
+                    [resource.id.deviceId + resource.id.resourcePath]);
+            }
+        }
+    }, 2000);
+
     module.exports = ocf;
 });

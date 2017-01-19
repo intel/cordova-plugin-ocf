@@ -116,4 +116,9 @@ public class OcfBackendMock implements OcfBackendInterface {
         this.resourceUpdates.clear();
         return updates;
     }
+
+    public JSONObject getResourceProperties(String key) throws JSONException {
+        //TODO: implement
+        return null;
+    }
 }
