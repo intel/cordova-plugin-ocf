@@ -392,6 +392,11 @@ public class OcfBackendIotivity
             return;
         }
 
+        OcResource seenResource = this.getSeenResourceByKey(key);
+        if (seenResource != null) {
+            return;
+        }
+
         Log.d("CordovaPluginOCF", "Found resource: " + key);
         this.seenResources.add(resource);
 
