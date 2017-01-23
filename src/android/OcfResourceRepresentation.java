@@ -1,6 +1,7 @@
 package com.intel.cordova.plugin.ocf;
 
 // Java
+import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 import android.util.Log;
 
 // Third party
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,7 +47,18 @@ public class OcfResourceRepresentation implements OcfObjectInterface {
     public JSONObject toJSON() throws JSONException {
         JSONObject o = new JSONObject();
         for (Map.Entry<String, Object> entry : this.properties.entrySet()) {
-            o.put(entry.getKey(), entry.getValue());
+            String key = entry.getKey();
+            Object val = entry.getValue();
+
+            if (val.getClass().isArray()) {
+                JSONArray a = new JSONArray();
+                for (int i = 0; i < Array.getLength(val); i++) {
+                    a.put(Array.get(val, i));
+                }
+                o.put(key, a);
+            } else {
+                o.put(key, val);
+            }
         }
 
         return o;

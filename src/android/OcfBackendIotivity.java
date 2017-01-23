@@ -146,6 +146,8 @@ public class OcfBackendIotivity
                 } else if (stringValue.toLowerCase().equals("false")) {
                     nativeRepr.setValue(key, false);
                     done = true;
+                } else {
+                    Log.w("CordovaPluginOCF", "Value is not an bool");
                 }
 
                 try {
@@ -162,6 +164,23 @@ public class OcfBackendIotivity
                     done = true;
                 } catch(NumberFormatException ex) {
                     Log.w("CordovaPluginOCF", "Value is not a double");
+                }
+
+                if (value.getClass().getCanonicalName().equals("org.json.JSONArray")) {
+                    JSONArray arr = (JSONArray) value;
+                    try {
+                        int[] ia = new int[arr.length()];
+                        for (int i = 0; i < arr.length(); i++) {
+                            ia[i] = arr.getInt(i);
+                        }
+
+                        nativeRepr.setValue(key, ia);
+                        done = true;
+                    } catch(JSONException e) {
+                        Log.w("CordovaPluginOCF", "Value is not an int[]");
+                    }
+                } else {
+                    Log.w("CordovaPluginOCF", "Value is not an array");
                 }
 
                 if (!done) {
