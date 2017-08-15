@@ -34,6 +34,6 @@
         <source-file src="src/android/OcfDevice.java" target-dir="src/" />
 
         <framework src="src/android/ocf.gradle" custom="true" type="gradleReference" />
-        <resource-file src="libs/iotivity-1.1.1.patched.aar" target="libs/iotivity-1.1.1.patched.aar" />
+        <resource-file src="libs/iotivity-1.3.0.aar" target="libs/iotivity-1.3.0.aar" />
     </platform>
 </plugin>

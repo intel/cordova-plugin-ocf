@@ -5,7 +5,7 @@ repositories{
 }
 
 dependencies {
-   compile 'org.iotivity:iotivity:1.1.1.patched@aar'
+   compile 'org.iotivity:iotivity:1.3.0@aar'
 }
 
 android {

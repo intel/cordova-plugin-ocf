@@ -380,12 +380,11 @@ public class OcfBackendIotivity
         try {
             device.setUuid((String) repr.getValue(OC_RSRVD_DEVICE_ID));
             device.setName((String) repr.getValue(OC_RSRVD_DEVICE_NAME));
-            device.setCoreSpecVersion((String) repr.getValue(OC_RSRVD_SPEC_VERSION));
             device.setDataModels(new ArrayList<String>() {{
                 add((String) repr.getValue(OC_RSRVD_DATA_MODEL_VERSION));
             }});
         } catch (OcException ex) {
-            Log.e("CordovaPluginOCF", "Error reading OcRepresentation");
+            Log.e("CordovaPluginOCF", "Error reading OcRepresentation: " + ex.getMessage());
         }
 
         OcfDeviceEvent ev = new OcfDeviceEvent(device);
@@ -441,6 +440,10 @@ public class OcfBackendIotivity
         }
     }
 
+    public void onFindResourceFailed(Throwable t, String s) {
+        Log.d("CordovaPluginOCF", "onFindResourceFailed: " + t.toString());
+    }
+
 
     // API
 
@@ -460,13 +463,18 @@ public class OcfBackendIotivity
     {
         String deviceId = args.getJSONObject(0).optString("deviceId");
         String resourceType = args.getJSONObject(0).optString("resourceType");
+        String queryUrl = OcPlatform.WELL_KNOWN_QUERY;
+
+        if (resourceType != null && resourceType.length() > 0) {
+            queryUrl += "?rt=" + resourceType;
+        }
 
         this.findResourcesCallbackContext = cc;
 
         try {
             OcPlatform.findResource(
                 deviceId,
-                OcPlatform.WELL_KNOWN_QUERY + "?rt=" + resourceType,
+                queryUrl,
                 EnumSet.of(OcConnectivityType.CT_DEFAULT),
                 this);
         } catch (OcException ex) {
