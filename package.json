@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-ocf",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Cordova OCF Plugin",
   "cordova": {
     "id": "cordova-plugin-ocf",
